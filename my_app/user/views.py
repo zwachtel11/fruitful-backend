@@ -5,7 +5,7 @@ from flask import request, jsonify, Blueprint, abort
 from flask.views import MethodView
 from flask.ext.restful import Resource
 from flask.ext.restful import reqparse
-from my_app import db, application, api
+from my_app import db, app, api
 from my_app.user.models import User, Fruit
 from my_app.auth import requires_auth 
  
