@@ -23,10 +23,15 @@ parser.add_argument('fruit', type=str)
 @requires_auth
 def home():
     return "Welcome to the Catalog Home."
- 
+
+def create_list(fruits):
+    json_list = []
+    for fruit in fruits:
+        json_list.append(str(fruit.name))
+    return json_list
  
 class UserApi(Resource):
- 
+    #@requires_auth
     def get(self, id=None, page=1):
         if not id:
             users = User.query.paginate(page, 10).items
@@ -36,22 +41,24 @@ class UserApi(Resource):
         for user in users:
             res[user.id] = {
                 'name': user.name,
-                'price': str(user.price),
+                'fruit_count': str(user.get_count()),
+                'created_date': str(user.created_date),
+                'fruits': create_list(user.fruits),
             }
         return json.dumps(res)
  
     def post(self):
         args = parser.parse_args()
         name = args['name']
-        price = args['price']
         password = args['password']
-        user = User(name, price, password)
+        user = User(name, password)
         db.session.add(user)
         db.session.commit()
         res = {}
         res[user.id] = {
             'name': user.name,
             'password': user.password,
+            'created_date': str(user.created_date),
         }
         return json.dumps(res)
  
@@ -64,11 +71,16 @@ class UserApi(Resource):
         users = [User.query.get(id)]
         res = {}
         for user in users:
-            user.fruits.append(Fruit(fruit))
+            fr = Fruit(fruit, user.id)
+            db.session.add(fr)
+            user.fruits.append(fr)
+            db.session.commit()
             res[user.id] = {
                 'name': user.name,
-                'first_fruit': user.fruits[0].name,
+                'placed_fruit': fruit,
+                'fruit_count': str(user.get_count()),
             }
+            
         return json.dumps(res)
 
     def delete(self, id):

@@ -91,7 +91,16 @@ try {
     }
 ```
 
-
+As of now this is what you can except in a response here:
+```
+{
+    'name': ,// USERNAME
+    'fruit_count': , // TOTAL COUNT OF FRUIT
+    'created_date': , // UTC TIME WHICH THE USER WAS CREATED
+    'fruits': , // NAME OF ALL FRUITS WHICH THE USER HAS LOGGED
+}
+```
+Let me know what other attributes you would like me to add.
 
 ## PUT
 
