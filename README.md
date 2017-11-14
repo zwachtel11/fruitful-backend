@@ -37,7 +37,7 @@ ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 // "tag" is the name of the text form on the webserver
 // "value" is the value that the client is submitting to the server
 // These two are specified by the server. The cilent side program must respect.
-nameValuePairs.add(new BasicNameValuePair("username", "admin"));
+nameValuePairs.add(new BasicNameValuePair("name", "admin"));
 nameValuePairs.add(new BasicNameValuePair("password", "password"));
 
 
@@ -70,13 +70,6 @@ HttpPost storeVal = new HttpGet("http://162.243.165.201:3000/api/user/<USER_ID>"
 
 // Values to be sent from android app to server
 ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-
-// "tag" is the name of the text form on the webserver
-// "value" is the value that the client is submitting to the server
-// These two are specified by the server. The cilent side program must respect.
-nameValuePairs.add(new BasicNameValuePair("username", "admin"));
-nameValuePairs.add(new BasicNameValuePair("password", "password"));
-
 
 try {
     UrlEncodedFormEntity httpEntity = new UrlEncodedFormEntity(nameValuePairs);
