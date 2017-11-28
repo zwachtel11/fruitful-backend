@@ -16,8 +16,19 @@ For now authentication works by trying to access the main endpoint with the user
 For Example: (in Android)
 
 ```
-http://162.243.165.201:3000/
-auth(user_name, password)
+CredentialsProvider provider = new BasicCredentialsProvider();
+UsernamePasswordCredentials credentials = new UsernamePasswordCredentials("<USER_NAME>", "PASSWORD");
+provider.setCredentials(AuthScope.ANY, credentials);
+HttpClient client = HttpClientBuilder.create().setDefaultCredentialsProvider(provider).build();
+
+HttpResponse response = client.execute(new HttpGet(http://162.243.165.201:3000/));
+int statusCode = response.getStatusLine().getStatusCode();
+if (statusCode == 200) {
+    // LOGIN IS VALID
+}
+else {
+    // LOGIN FAILED
+}
 ```  
 
 ## POST a user
