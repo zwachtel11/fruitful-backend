@@ -27,7 +27,7 @@ def home():
 def create_list(fruits):
     json_list = []
     for fruit in fruits:
-        json_list.append(str(fruit.name))
+        json_list.append(str(fruit.name) + ',' + str(fruit.created_date))
     return json_list
  
 class UserApi(Resource):

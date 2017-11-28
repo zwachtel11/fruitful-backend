@@ -93,9 +93,9 @@ Let me know what other attributes you would like me to add.
 String reply = null;
 String resJson=""; //capture acknowledgement from server, if any
 
-//Construct an HTTP POST
+//Construct an HTTP PUT
 HttpClient httpclient = new DefaultHttpClient();
-HttpPost storeVal = new HttpPut("http://162.243.165.201:3000/api/user/<USER_ID>");
+HttpPut storeVal = new HttpPut("http://162.243.165.201:3000/api/user/<USER_ID>");
 
 // Values to be sent from android app to server
 ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
@@ -110,7 +110,8 @@ try {
     UrlEncodedFormEntity httpEntity = new UrlEncodedFormEntity(nameValuePairs);
     storeVal.setEntity(httpEntity);
 
-    //Execute HTTP POST
+    
+    //Execute HTTP PUT
     HttpResponse response = httpclient.execute(storeVal);
     //Capture acknowledgement from server
     // In this demo app, the server returns "Update" if the tag already exists;

@@ -6,7 +6,6 @@ class User(db.Model):
     name = db.Column(db.String(255))
     password = db.Column(db.String(255))
     created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-    price = db.Column(db.Float(asdecimal=True))
     fruits = db.relationship('Fruit', backref='user', uselist=True, lazy=True)
  
     def __init__(self, name, password):
@@ -22,6 +21,7 @@ class User(db.Model):
 class Fruit(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
+    created_date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     person_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __init__(self, name, person_id):
