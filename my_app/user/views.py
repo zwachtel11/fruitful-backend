@@ -22,7 +22,12 @@ parser.add_argument('fruit', type=str)
 @catalog.route('/home')
 @requires_auth
 def home():
-    return "Welcome to the Catalog Home."
+    users = User.query.paginate(1, 10).items
+    res = {}
+    for user in users:
+        if str(request.authorization.username) == str(user.name):
+            res['id'] = user.id
+    return json.dumps(res)
 
 def create_list(fruits):
     json_list = []
