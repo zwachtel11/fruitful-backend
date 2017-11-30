@@ -16,20 +16,29 @@ For now authentication works by trying to access the main endpoint with the user
 For Example: (in Android)
 
 ```
-CredentialsProvider provider = new BasicCredentialsProvider();
-UsernamePasswordCredentials credentials = new UsernamePasswordCredentials("<USER_NAME>", "PASSWORD");
-provider.setCredentials(AuthScope.ANY, credentials);
-HttpClient client = HttpClientBuilder.create().setDefaultCredentialsProvider(provider).build();
+String reply = null;
+String resJson=""; //capture acknowledgement from server, if any
 
-HttpResponse response = client.execute(new HttpGet(http://162.243.165.201:3000/));
-int statusCode = response.getStatusLine().getStatusCode();
-if (statusCode == 200) {
-    // LOGIN IS VALID
+//Construct an HTTP GET
+HttpClient httpclient = new DefaultHttpClient();
+HttpGet request = new HttpGet("http://162.243.165.201:3000");
+request.setHeader("Authorization", "Basic "+Base64.encodeBytes("<USER_NAME>:<PASSWORD>".getBytes()));
+
+try {
+    //Execute HTTP GET
+    HttpResponse response = httpclient.execute(storeVal);
+    int statusCode = response.getStatusLine().getStatusCode();
+    if (statusCode == 200) {
+        // LOGIN IS VALID
+
+        // USER ID WE'LL BE IN HERE
+        resJson = EntityUtils.toString(response.getEntity());
+    }
+    else {
+        // LOGIN FAILED
+    }
 }
-else {
-    // LOGIN FAILED
-}
-```  
+```
 
 ## POST a user
 
