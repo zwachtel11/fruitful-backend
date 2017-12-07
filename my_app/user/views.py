@@ -22,7 +22,7 @@ parser.add_argument('fruit', type=str)
 @catalog.route('/home')
 @requires_auth
 def home():
-    users = User.query.paginate(1, 10).items
+    users = User.query.paginate(1, 100).items
     res = {}
     for user in users:
         if str(request.authorization.username) == str(user.name):
@@ -39,7 +39,7 @@ class UserApi(Resource):
     #@requires_auth
     def get(self, id=None, page=1):
         if not id:
-            users = User.query.paginate(page, 10).items
+            users = User.query.paginate(page, 100).items
         else:
             users = [User.query.get(id)]
         res = {}
